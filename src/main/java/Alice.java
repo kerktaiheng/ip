@@ -29,9 +29,7 @@ public class Alice {
             } 
             if (varargs.length == 1 && varargs[0].equals(("list"))) {
                 for (int i = 0; i < list.size(); i++) {
-                    System.out.println(i + 1 + ". " + "[" +
-                        (list.get(i).isDone ? "X" : " ") +
-                        "] " + list.get(i).name);
+                    System.out.println(i + 1 + ". " +  list.get(i));
                 }
                 continue;
             }
@@ -39,9 +37,10 @@ public class Alice {
                 try {
                     int index = Integer.parseInt(varargs[1]);
                     if (index > 0 && index <= list.size()) {
-                        list.set(index - 1, new Task(list.get(index - 1).name));
-                        System.out.println("Nice! I've marked this task as done:\n");
-                        System.out.println("[X] " + list.get(index - 1).name);
+                        Task task = list.get(index - 1);
+                        task.isDone = true;
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println(list.get(index - 1));
                     } else {
                         System.out.println("Invalid index");
                     }
@@ -56,9 +55,10 @@ public class Alice {
                 try {
                     int index = Integer.parseInt(varargs[1]);
                     if (index > 0 && index <= list.size()) {
-                        list.set(index - 1, new Task( list.get(index - 1).name));
-                        System.out.println("Please stop slacking off: " + 
-                            "[ ] " + list.get(index - 1).name);
+                        Task task = list.get(index - 1);
+                        task.isDone = false;
+                        System.out.println("Please stop slacking off:");
+                        System.out.println(list.get(index - 1));
                     } else {
                         System.out.println("Invalid index");
                     }
@@ -70,8 +70,80 @@ public class Alice {
                 continue;
             }
             else {
-                list.add(new Task(input));
-                System.out.println("Task added: " + input + "\n");
+                StringBuilder sb;
+                String name;
+                String by;
+                String from;
+                String to;
+                switch (varargs[0]) {
+                    case "todo":
+                        sb = new StringBuilder();
+                        for (int i = 1; i < varargs.length; i++) {
+                            sb.append(varargs[i]);
+                            sb.append(" ");
+                        }
+                        name = sb.toString().trim();
+                        Todo todo = new Todo(name);
+                        list.add(todo);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(todo);
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
+                        break;
+                    case "deadline":
+                        sb = new StringBuilder();
+                        int i = 1;
+                        while (!varargs[i].equals("/by")) {
+                            sb.append(varargs[i]);
+                            sb.append(" ");
+                            i++;
+                        }
+                        name = sb.toString().trim();
+                        sb = new StringBuilder();
+                        i++;
+                        while (i < varargs.length) {
+                            sb.append(varargs[i]);
+                            sb.append(" ");
+                            i++;
+                        }
+                        by = sb.toString().trim();
+                        Deadline deadline = new Deadline(name, by);
+                        list.add(deadline);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(deadline);
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
+                        break;
+                    case "event":
+                        sb = new StringBuilder();
+                        int j = 1;
+                        while (!varargs[j].equals("/from")) {
+                            sb.append(varargs[j]);
+                            sb.append(" ");
+                            j++;
+                        }
+                        name = sb.toString().trim();
+                        sb = new StringBuilder();
+                        j++;
+                        while (!varargs[j].equals("/to")) {
+                            sb.append(varargs[j]);
+                            sb.append(" ");
+                            j++;
+                        }
+                        from = sb.toString().trim();
+                        sb = new StringBuilder();
+                        j++;
+                        while (j < varargs.length) {
+                            sb.append(varargs[j]);
+                            sb.append(" ");
+                            j++;
+                        }
+                        to = sb.toString().trim();
+                        Event event = new Event(name, from, to);
+                        list.add(event);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(event);
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
+                        break;
+                }
             }
         }
         System.out.println();

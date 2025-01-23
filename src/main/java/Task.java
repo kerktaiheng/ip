@@ -6,4 +6,9 @@ public class Task {
         this.name = name;
         this.isDone = false;
     }
+
+    @Override
+    public String toString() {
+        return "[" + (isDone ? "X" : " ") + "] " + name;
+    }
 }
