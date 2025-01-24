@@ -10,4 +10,7 @@ list
 unmark 2
 unmark 3
 list
+beat airplanes
+mark 100
+unmark 200
 bye

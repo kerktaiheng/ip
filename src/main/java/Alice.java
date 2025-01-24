@@ -6,6 +6,7 @@ public class Alice {
     public static void main(String[] args) {
         List<Task> list = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
+        final String ERRORMSG = "Huh????";
         String logo = 
             "   ,---,        ,--,                                 \n" +
             "  '  .' \\     ,--.'|     ,--,                        \n" +
@@ -28,14 +29,12 @@ public class Alice {
             String[] varargs = input.split("\\s+");
             if (varargs.length == 1 && varargs[0].equals("bye")) {
                 break;
-            } 
-            if (varargs.length == 1 && varargs[0].equals(("list"))) {
+            } else if (varargs.length == 1 && varargs[0].equals(("list"))) {
                 for (int i = 0; i < list.size(); i++) {
                     System.out.println(i + 1 + ". " +  list.get(i));
                 }
                 continue;
-            }
-            if (varargs.length == 2 && varargs[0].equals("mark")) {
+            } else if (varargs.length == 2 && varargs[0].equals("mark")) {
                 try {
                     int index = Integer.parseInt(varargs[1]);
                     if (index > 0 && index <= list.size()) {
@@ -52,8 +51,7 @@ public class Alice {
                     System.out.println("Invalid index");
                 }
                 continue;
-            }
-            if (varargs.length == 2 && varargs[0].equals("unmark")) {
+            } else if (varargs.length == 2 && varargs[0].equals("unmark")) {
                 try {
                     int index = Integer.parseInt(varargs[1]);
                     if (index > 0 && index <= list.size()) {
@@ -85,6 +83,10 @@ public class Alice {
                             sb.append(" ");
                         }
                         name = sb.toString().trim();
+                        if (name.equals("")) {
+                            System.out.println(ERRORMSG);
+                            break;
+                        }
                         Todo todo = new Todo(name);
                         list.add(todo);
                         System.out.println("Got it. I've added this task:");
@@ -108,6 +110,10 @@ public class Alice {
                             i++;
                         }
                         by = sb.toString().trim();
+                        if (name.equals("") || by.equals("")) {
+                            System.out.println(ERRORMSG);
+                            break;
+                        }
                         Deadline deadline = new Deadline(name, by);
                         list.add(deadline);
                         System.out.println("Got it. I've added this task:");
@@ -139,11 +145,18 @@ public class Alice {
                             j++;
                         }
                         to = sb.toString().trim();
+                        if (name.equals("") || from.equals("") || to.equals("")) {
+                            System.out.println(ERRORMSG);
+                            break;
+                        }
                         Event event = new Event(name, from, to);
                         list.add(event);
                         System.out.println("Got it. I've added this task:");
                         System.out.println(event);
                         System.out.println("Now you have " + list.size() + " tasks in the list.");
+                        break;
+                    default:
+                        System.out.println(ERRORMSG);
                         break;
                 }
             }
