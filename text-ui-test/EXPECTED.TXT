@@ -67,5 +67,27 @@ Invalid index
 
 Invalid index
 
+Can't wait to hear your sh*tty excuse this time:
+[T][ ] run
+Now you have 2 tasks in the list.
+
+1. [D][ ] die (by: tmr)
+2. [E][ ] lovemaking (from: 3pm to: 3.01pm)
+
+Can't wait to hear your sh*tty excuse this time:
+[D][ ] die (by: tmr)
+Now you have 1 tasks in the list.
+
+1. [E][ ] lovemaking (from: 3pm to: 3.01pm)
+
+Invalid index
+
+1. [E][ ] lovemaking (from: 3pm to: 3.01pm)
+
+Can't wait to hear your sh*tty excuse this time:
+[E][ ] lovemaking (from: 3pm to: 3.01pm)
+Now you have 0 tasks in the list.
+
+
 
 See you soon!

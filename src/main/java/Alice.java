@@ -68,6 +68,24 @@ public class Alice {
                     System.out.println("Invalid index");
                 }
                 continue;
+            } else if (varargs.length == 2 && varargs[0].equals("delete")) {
+                try {
+                    int index = Integer.parseInt(varargs[1]);
+                    if (index > 0 && index <= list.size()) {
+                        Task task = list.get(index - 1);
+                        System.out.println("Can't wait to hear your sh*tty excuse this time:");
+                        System.out.println(list.get(index - 1));
+                        list.remove(index - 1);
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    } else {
+                        System.out.println("Invalid index");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid index");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Invalid index");
+                }
+                continue;
             }
             else {
                 StringBuilder sb;

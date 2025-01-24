@@ -13,4 +13,12 @@ list
 beat airplanes
 mark 100
 unmark 200
+delete 1
+list
+delete 1
+list
+delete 2
+list
+delete 1
+list
 bye
