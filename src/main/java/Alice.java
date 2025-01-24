@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Alice {
     public static void main(String[] args) {
         List<Task> list = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
         String logo = 
             "   ,---,        ,--,                                 \n" +
             "  '  .' \\     ,--.'|     ,--,                        \n" +
@@ -20,9 +22,9 @@ public class Alice {
             "                        ---`-'    `----'    `----'   \n";
         System.out.println("Hello from\n\n" + logo + "\n\n");
         System.out.println("What can I do for you today?\n");
-        while (true) {
-            System.out.println();
-            String input = System.console().readLine();
+        while (sc.hasNextLine()) {
+            System.out.println("");
+            String input = sc.nextLine();
             String[] varargs = input.split("\\s+");
             if (varargs.length == 1 && varargs[0].equals("bye")) {
                 break;
