@@ -1,3 +1,7 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,11 +14,52 @@ public class Alice {
     public Alice() {
         this.tasklist = new ArrayList<>();
         isTestMode = false;
+        initializeTasks();
     }
 
     public Alice(boolean isTestMode) {
         this.tasklist = new ArrayList<>();
         this.isTestMode = isTestMode;
+        initializeTasks();
+    }
+
+    private void initializeTasks() {
+        Path dirPath = Paths.get("data");
+        Path filePath = dirPath.resolve("alice.txt");
+
+        if (!isTestMode) {
+            try {
+                if (!Files.exists(dirPath)) {
+                    Files.createDirectory(dirPath);
+                }
+                if (!Files.exists(filePath)) {
+                    Files.createFile(filePath);
+                } else {
+                    List<String> lines = Files.readAllLines(filePath);
+                    for (String line : lines) {
+                        Task task = Task.parseTask(line);
+                        tasklist.add(task);
+                    }
+                    System.out.println("Tasks read from file: " + tasklist);
+                }
+            } catch (IOException e) {
+                System.err.println("Error initializing tasks: " + e.getMessage());
+            }
+        }
+    }
+
+    private void saveTasks() {
+        Path dirPath = Paths.get("data");
+        Path filePath = dirPath.resolve("alice.txt");
+
+        try {
+            List<String> lines = new ArrayList<>();
+            for (Task task : tasklist) {
+                lines.add(task.toDataString());
+            }
+            Files.write(filePath, lines);
+        } catch (IOException e) {
+        }
     }
 
     public static void main(String[] args) {
@@ -27,7 +72,7 @@ public class Alice {
             alice = new Alice();
         }   
 
-        // if 
+        alice.initializeTasks();
 
         System.out.println(MessageGenerator.LOGO);
         System.out.println(MessageGenerator.getIntroString());
@@ -38,6 +83,7 @@ public class Alice {
             String[] varargs = input.split("\\s+");
             if (varargs.length == 1 && varargs[0].equals("bye")) {
                 System.out.println(MessageGenerator.getGoodbyeString());
+                alice.saveTasks();
                 break;
             } else if (varargs.length == 1 && varargs[0].equals(("list"))) {
                 for (int i = 0; i < alice.tasklist.size(); i++) {
