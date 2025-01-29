@@ -4,16 +4,16 @@ import java.util.Scanner;
 
 public class Alice {
 
-    private List<Task> list;
+    private List<Task> tasklist;
     private boolean isTestMode = false;
 
     public Alice() {
-        this.list = new ArrayList<>();
+        this.tasklist = new ArrayList<>();
         isTestMode = false;
     }
 
     public Alice(boolean isTestMode) {
-        this.list = new ArrayList<>();
+        this.tasklist = new ArrayList<>();
         this.isTestMode = isTestMode;
     }
 
@@ -38,18 +38,18 @@ public class Alice {
                 System.out.println(MessageGenerator.getGoodbyeString());
                 break;
             } else if (varargs.length == 1 && varargs[0].equals(("alice.list"))) {
-                for (int i = 0; i < alice.list.size(); i++) {
-                    System.out.println(i + 1 + ". " +  alice.list.get(i));
+                for (int i = 0; i < alice.tasklist.size(); i++) {
+                    System.out.println(i + 1 + ". " +  alice.tasklist.get(i));
                 }
                 continue;
             } else if (varargs.length == 2 && varargs[0].equals("mark")) {
                 try {
                     int index = Integer.parseInt(varargs[1]);
-                    if (index > 0 && index <= alice.list.size()) {
-                        Task task = alice.list.get(index - 1);
-                        task.isDone = true;
+                    if (index > 0 && index <= alice.tasklist.size()) {
+                        Task task = alice.tasklist.get(index - 1);
+                        task.isMarked = true;
                         System.out.println(MessageGenerator.getTaskMarkedString());
-                        System.out.println(alice.list.get(index - 1));
+                        System.out.println(alice.tasklist.get(index - 1));
                     } else {
                         System.out.println("Invalid index");
                     }
@@ -62,11 +62,11 @@ public class Alice {
             } else if (varargs.length == 2 && varargs[0].equals("unmark")) {
                 try {
                     int index = Integer.parseInt(varargs[1]);
-                    if (index > 0 && index <= alice.list.size()) {
-                        Task task = alice.list.get(index - 1);
-                        task.isDone = false;
+                    if (index > 0 && index <= alice.tasklist.size()) {
+                        Task task = alice.tasklist.get(index - 1);
+                        task.isMarked = false;
                         System.out.println(MessageGenerator.getTaskUnmarkedString());
-                        System.out.println(alice.list.get(index - 1));
+                        System.out.println(alice.tasklist.get(index - 1));
                     } else {
                         System.out.println("Invalid index");
                     }
@@ -79,11 +79,11 @@ public class Alice {
             } else if (varargs.length == 2 && varargs[0].equals("delete")) {
                 try {
                     int index = Integer.parseInt(varargs[1]);
-                    if (index > 0 && index <= alice.list.size()) {
-                        Task task = alice.list.get(index - 1);
+                    if (index > 0 && index <= alice.tasklist.size()) {
+                        Task task = alice.tasklist.get(index - 1);
                         System.out.println(MessageGenerator.getTaskUnmarkedString());
                         System.out.println(task);
-                        alice.list.remove(index - 1);
+                        alice.tasklist.remove(index - 1);
                     } else {
                         System.out.println("Invalid index");
                     }
@@ -100,86 +100,87 @@ public class Alice {
                 String from;
                 String to;
                 Task task = null;
-                switch (varargs[0]) {
-                case "todo":
-                    sb = new StringBuilder();
-                    for (int i = 1; i < varargs.length; i++) {
-                        sb.append(varargs[i]);
-                        sb.append(" ");
-                    }
-                    name = sb.toString().trim();
-                    if (name.equals("")) {
-                        System.out.println(MessageGenerator.getErrorMsg());
+                try{
+                    switch (varargs[0]) {
+                    case "todo":
+                        sb = new StringBuilder();
+                        for (int i = 1; i < varargs.length; i++) {
+                            sb.append(varargs[i]);
+                            sb.append(" ");
+                        }
+                        name = sb.toString().trim();
+                        if (name.equals("")) {
+                            throw new CommandFormatException();
+                        }
+                        task = new Todo(name);
                         break;
-                    }
-                    task = new Todo(name);
-                    break;
-                case "deadline":
-                    sb = new StringBuilder();
-                    int i = 1;
-                    while (!varargs[i].equals("/by")) {
-                        sb.append(varargs[i]);
-                        sb.append(" ");
+                    case "deadline":
+                        sb = new StringBuilder();
+                        int i = 1;
+                        while (!varargs[i].equals("/by")) {
+                            sb.append(varargs[i]);
+                            sb.append(" ");
+                            i++;
+                        }
+                        name = sb.toString().trim();
+                        sb = new StringBuilder();
                         i++;
-                    }
-                    name = sb.toString().trim();
-                    sb = new StringBuilder();
-                    i++;
-                    while (i < varargs.length) {
-                        sb.append(varargs[i]);
-                        sb.append(" ");
-                        i++;
-                    }
-                    by = sb.toString().trim();
-                    if (name.equals("") || by.equals("")) {
+                        while (i < varargs.length) {
+                            sb.append(varargs[i]);
+                            sb.append(" ");
+                            i++;
+                        }
+                        by = sb.toString().trim();
+                        if (name.equals("") || by.equals("")) {
+                            throw new CommandFormatException();
+                        }
+                        task = new Deadline(name, by);
+                        break;
+                    case "event":
+                        sb = new StringBuilder();
+                        int j = 1;
+                        while (!varargs[j].equals("/from")) {
+                            sb.append(varargs[j]);
+                            sb.append(" ");
+                            j++;
+                        }
+                        name = sb.toString().trim();
+                        sb = new StringBuilder();
+                        j++;
+                        while (!varargs[j].equals("/to")) {
+                            sb.append(varargs[j]);
+                            sb.append(" ");
+                            j++;
+                        }
+                        from = sb.toString().trim();
+                        sb = new StringBuilder();
+                        j++;
+                        while (j < varargs.length) {
+                            sb.append(varargs[j]);
+                            sb.append(" ");
+                            j++;
+                        }
+                        to = sb.toString().trim();
+                        if (name.equals("") || from.equals("") || to.equals("")) {
+                            throw new CommandFormatException();
+                        }
+                        task = new Event(name, from, to);
+                        break;
+                    default:
                         System.out.println(MessageGenerator.getErrorMsg());
                         break;
                     }
-                    task = new Deadline(name, by);
-                    break;
-                case "event":
-                    sb = new StringBuilder();
-                    int j = 1;
-                    while (!varargs[j].equals("/from")) {
-                        sb.append(varargs[j]);
-                        sb.append(" ");
-                        j++;
-                    }
-                    name = sb.toString().trim();
-                    sb = new StringBuilder();
-                    j++;
-                    while (!varargs[j].equals("/to")) {
-                        sb.append(varargs[j]);
-                        sb.append(" ");
-                        j++;
-                    }
-                    from = sb.toString().trim();
-                    sb = new StringBuilder();
-                    j++;
-                    while (j < varargs.length) {
-                        sb.append(varargs[j]);
-                        sb.append(" ");
-                        j++;
-                    }
-                    to = sb.toString().trim();
-                    if (name.equals("") || from.equals("") || to.equals("")) {
-                        System.out.println(MessageGenerator.getErrorMsg());
-                        break;
-                    }
-                    task = new Event(name, from, to);
-                    break;
-                default:
+                } catch (CommandFormatException e) {
                     System.out.println(MessageGenerator.getErrorMsg());
-                    break;
                 }
                 if (task != null) {
-                    alice.list.add(task);
+                    alice.tasklist.add(task);
                     System.out.println(MessageGenerator.getGenericInsult());
                     System.out.println(task);
                 }
             }
         }
         System.out.println();
-        System.out.println("See you soon!");
+        System.out.println("...come back soon");
     }
 }
