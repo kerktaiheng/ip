@@ -70,6 +70,11 @@ public class Ui {
         System.out.println(box(tasks.toString()));
     }
 
+    public void showTasksFound(TaskList tasks) {
+        System.out.println(box(MessageGenerator.getGenericInsult()));
+        System.out.println(box(tasks.toString()));
+    }
+
     public String readCommand() {
         return SC.nextLine();
     }

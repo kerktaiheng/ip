@@ -1,11 +1,12 @@
 package command;
 
-import exceptions.AliceException;
-import exceptions.CommandFormatException;
-import utils.ArrayUtils;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+
+import exceptions.AliceException;
+import exceptions.CommandFormatException;
+import utils.ArrayUtils;
 
 public class Parser {
 
@@ -88,6 +89,12 @@ public class Parser {
             } catch (Exception e) {
                 throw new CommandFormatException();
             }
+            case "find":
+                if (numArgs < 2) {
+                    throw new CommandFormatException();
+                }
+                String keyword = ArrayUtils.joinFromIndex(args, " ", 1);
+                return new FindCommand(keyword);
         default:
             throw new CommandFormatException();
         }
