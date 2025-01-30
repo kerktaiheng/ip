@@ -1,6 +1,13 @@
-todo run
-deadline die /by tmr
-event lovemaking /from 3pm /to 3.01pm
+list
+delete 1
+list
+delete 1
+list
+delete 1
+list
+todo run errands
+deadline die another day /by 2000-10-10 00:00
+event love making /from 2069-01-01 15:00 /to 2069-01-01 15:11
 mark 1
 mark 2
 mark 3
@@ -19,4 +26,9 @@ delete 1
 list
 delete 2
 list
+delete 1
+list
+todo run errands
+deadline die another day /by 2000-10-10 00:00
+event love making /from 2069-01-01 15:00 /to 2069-01-01 15:11
 bye

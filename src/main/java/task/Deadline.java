@@ -1,18 +1,19 @@
+package task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected LocalDateTime by;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public Deadline(String name, String by) {
+    public Deadline(String name, LocalDateTime by) {
         super(name);
-        this.by = LocalDateTime.parse(by, FORMATTER);
+        this.by = by;
     }
 
-    public Deadline(String name, String by, Boolean isMarked) {
+    public Deadline(String name, LocalDateTime by, Boolean isMarked) {
         super(name, isMarked);
-        this.by = LocalDateTime.parse(by, FORMATTER);
+        this.by = by;
     }
 
     @Override

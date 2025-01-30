@@ -1,3 +1,4 @@
+package ui;
 import java.util.Random;
 
 public class MessageGenerator {
@@ -89,6 +90,8 @@ public class MessageGenerator {
         "you are so sinful",
     };
 
+    private static final String[] TASKEDADDEDMSGS = GENERICINSULTS;
+
     private static final String[] TASKMARKEDMSGS = {
         "wow, you finally did something",
         "congratulations, you did something",
@@ -141,6 +144,8 @@ public class MessageGenerator {
         "i knew u would mess up",
         "i knew u would screw up",
     };
+
+    private static final String[] TASKDELETEDMSGS = TASKUNMARKEDMSGS;
 
     public static final String[] ERRORMSGS = {
         "i dont understand",
@@ -197,12 +202,20 @@ public class MessageGenerator {
         return GENERICINSULTS[rand.nextInt(GENERICINSULTS.length)];
     }
 
+    public static String getTaskAddedString() {
+        return TASKEDADDEDMSGS[rand.nextInt(TASKEDADDEDMSGS.length)];
+    }
+
     public static String getTaskMarkedString() {
         return TASKMARKEDMSGS[rand.nextInt(TASKMARKEDMSGS.length)];
     }
 
     public static String getTaskUnmarkedString() {
         return TASKUNMARKEDMSGS[rand.nextInt(TASKUNMARKEDMSGS.length)];
+    }
+
+    public static String getTaskDeletedString() {
+        return TASKDELETEDMSGS[rand.nextInt(TASKDELETEDMSGS.length)];
     }
 
     public static String getErrorMsg() {

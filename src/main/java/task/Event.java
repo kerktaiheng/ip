@@ -1,3 +1,4 @@
+package task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -6,16 +7,16 @@ public class Event extends Task {
     protected LocalDateTime to;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public Event(String name, String from, String to) {
+    public Event(String name, LocalDateTime from, LocalDateTime to) {
         super(name);
-        this.from = LocalDateTime.parse(from, FORMATTER);
-        this.to = LocalDateTime.parse(to, FORMATTER);
+        this.from = from;
+        this.to = to;
     }
 
-    public Event(String name, String from, String to, boolean isMarked) {
+    public Event(String name, LocalDateTime from, LocalDateTime to, boolean isMarked) {
         super(name, isMarked);
-        this.from = LocalDateTime.parse(from, FORMATTER);
-        this.to = LocalDateTime.parse(to, FORMATTER);
+        this.from = from;
+        this.to = to;
     }
 
     @Override
