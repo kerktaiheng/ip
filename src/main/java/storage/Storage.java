@@ -23,16 +23,32 @@ public class Storage {
     private final String dir;
     private final String file;
 
+    /**
+     * Constructs a Storage object with default directory and file paths.
+     */
     public Storage() {
         this.dir = DEFAULT_DIR_PATH;
         this.file = DEFAULT_FILE_PATH;
     }
 
+    /**
+     * Constructs a Storage object with specified directory and file paths. Note
+     * that these paths are relative.
+     *
+     * @param dir The directory path.
+     * @param file The file path.
+     */
     public Storage(String dir, String file) {
         this.dir = dir;
         this.file = file;
     }
     
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return The list of tasks.
+     * @throws StorageIOException If an I/O error occurs.
+     */
     public TaskList loadTasks() throws StorageIOException {
         Path dirPath = Paths.get(this.dir);
         Path filePath = dirPath.resolve(this.file);
@@ -56,13 +72,18 @@ public class Storage {
                 Task task = decodeTask(line);
                 tasks.addTask(task);
             } catch (StorageDecodeException e) {
-                continue;
             }
         }
 
         return tasks;
     }
 
+    /**
+     * Saves tasks to the storage file.
+     *
+     * @param tasks The list of tasks.
+     * @throws StorageIOException If an I/O error occurs.
+     */
     public void saveTasks(TaskList tasks) throws StorageIOException {
         Path dirPath = Paths.get(this.dir);
         Path filePath = dirPath.resolve(this.file);
@@ -74,6 +95,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes the storage file.
+     *
+     * @throws StorageIOException If an I/O error occurs.
+     */
     public void deleteFile() throws StorageIOException {
         Path dirPath = Paths.get(this.dir);
         Path filePath = dirPath.resolve(this.file);
@@ -85,6 +111,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Decodes a task from a data string. The format is specified in
+     * Task.toDataString().
+     *
+     * @param taskString The task string.
+     * @return The decoded task.
+     * @throws StorageDecodeException If the task string format is incorrect.
+     */
     public static Task decodeTask(String taskString) throws StorageDecodeException {
         String[] taskParts = taskString.split("\\|");
         boolean isMarked = taskParts[1].equals("1");

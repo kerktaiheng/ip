@@ -26,10 +26,21 @@ public class TaskList {
         taskList.addAll(Arrays.asList(tasks));
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task the task to add
+     */
     public void addTask(Task task) {
         taskList.add(task);
     }
 
+    /**
+     * Deletes a task from the task list at the specified index.
+     *
+     * @param index the index of the task to delete
+     * @throws InvalidIndexException if the index is out of range
+     */
     public void deleteTask(int index) throws InvalidIndexException {
         if (index < 0 || index >= taskList.size()) {
             throw new InvalidIndexException();
@@ -37,6 +48,13 @@ public class TaskList {
         taskList.remove(index);
     }
 
+    /**
+     * Returns the task at the specified index.
+     *
+     * @param index the index of the task to return
+     * @return the task at the specified index
+     * @throws InvalidIndexException if the index is out of range
+     */
     public Task getTask(int index) throws InvalidIndexException {
         if (index < 0 || index >= taskList.size()) {
             throw new InvalidIndexException();
@@ -44,10 +62,20 @@ public class TaskList {
         return taskList.get(index);
     }
 
+    /**
+     * Returns the number of tasks in the task list.
+     *
+     * @return the number of tasks in the task list
+     */
     public int size() {
         return taskList.size();
     }
 
+    /**
+     * Returns a string representation of the task list.
+     *
+     * @return a string representation of the task list
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -57,6 +85,11 @@ public class TaskList {
         return sb.toString();
     }
 
+    /**
+     * Returns a data string representation of the task list.
+     *
+     * @return a data string representation of the task list
+     */
     public String toDataString() {
         StringBuilder sb = new StringBuilder();
         for (Task task : taskList) {

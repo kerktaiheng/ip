@@ -1,4 +1,3 @@
-
 import command.Command;
 import command.Parser;
 import exceptions.AliceException;
@@ -7,27 +6,30 @@ import storage.Storage;
 import task.TaskList;
 import ui.Ui;
 
+/**
+ * The main class for the Alice application.
+ */
 public class Alice {
 
     private TaskList tasks;
     private final Ui ui;
     private final Storage storage;
-    private boolean isTestMode = false;
 
+    /**
+     * Constructs an Alice object and initializes the task list, UI, and
+     * storage.
+     */
     public Alice() {
         this.tasks = new TaskList();
         this.ui = new Ui();
         this.storage = new Storage();
-        isTestMode = false;
     }
 
-    public Alice(boolean isTestMode) {
-        this.tasks = new TaskList();
-        this.ui = new Ui();
-        this.storage = new Storage();
-        this.isTestMode = isTestMode;
-    }
-
+    /**
+     * Runs the Alice application. Displays the introduction message, loads
+     * tasks from storage, and processes user commands in a loop until an exit
+     * command is received.
+     */
     public void run() {
         ui.showIntro();
         try {
@@ -50,11 +52,12 @@ public class Alice {
         }
     }
 
+    /**
+     * The main method to start the Alice application.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
-        if (args.length > 0 && args[0].equals("test")) {
-            new Alice(true).run();
-        } else {
-            new Alice().run();
-        }
+        new Alice().run();
     }
 }

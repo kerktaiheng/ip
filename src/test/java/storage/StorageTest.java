@@ -12,11 +12,19 @@ import org.junit.jupiter.api.Test;
 import task.TaskList;
 import utils.RandomUtils;
 
+/**
+ * Test class for the Storage class.
+ */
 public class StorageTest {
 
     private static final String TESTDIR = "data";
     private static final String TESTFILE = "test.txt";
 
+    /**
+     * Sets up the test environment by creating test files and directories.
+     *
+     * @throws IOException If an I/O error occurs.
+     */
     public void setupTest() throws IOException {
         Path dirPath = Paths.get(TESTDIR);
         Path filePath = dirPath.resolve(TESTFILE);
@@ -34,6 +42,11 @@ public class StorageTest {
                 + RandomUtils.getRandomDateTimeString()));
     }
 
+    /**
+     * Tears down the test environment by deleting test files and directories.
+     *
+     * @throws IOException If an I/O error occurs.
+     */
     private void teardownTest() throws IOException {
         Path dirPath = Paths.get(TESTDIR);
         Path filePath = dirPath.resolve(TESTFILE);
@@ -42,6 +55,11 @@ public class StorageTest {
         Files.deleteIfExists(dirPath);
     }
 
+    /**
+     * Tests loading tasks from an empty file.
+     *
+     * @throws Exception If an error occurs during the test.
+     */
     @Test
     public void loadTasks_emptyFile_emptyTaskList() throws Exception {
         Storage storage = new Storage("data", "test.txt");
@@ -50,6 +68,11 @@ public class StorageTest {
         teardownTest();
     }
 
+    /**
+     * Tests loading tasks from a non-empty file.
+     *
+     * @throws Exception If an error occurs during the test.
+     */
     @Test
     public void loadTasks_nonEmptyFile_nonEmptyTaskList() throws Exception {
         setupTest();
