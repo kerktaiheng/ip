@@ -1,12 +1,13 @@
 package command;
 
+import exceptions.AliceException;
+import storage.Storage;
 import task.Task;
 import task.TaskList;
 import ui.Ui;
-import storage.Storage;
-import exceptions.AliceException;
 
 public class DeleteCommand extends Command {
+
     private int index;
 
     public DeleteCommand(int oneBasedIndex) {

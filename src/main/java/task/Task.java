@@ -1,10 +1,8 @@
 package task;
-import java.time.format.DateTimeFormatter;
 
 public abstract class Task {
     protected String name;
     protected Boolean isMarked = false;
-    public static final DateTimeFormatter DATETIMEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public Task(String name) {
         this.name = name;
@@ -17,16 +15,24 @@ public abstract class Task {
     }
 
     public void mark() {
-        isMarked = true;
+        this.isMarked = true;
     }
 
     public void unmark() {
-        isMarked = false;
+        this.isMarked = false;
     }
 
     @Override
     public String toString() {
         return "[" + (isMarked ? "X" : " ") + "] " + name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Task task) {
+            return this.name.equals(task.name) && this.isMarked.equals(task.isMarked);
+        }
+        return false;
     }
 
     public abstract String toDataString();

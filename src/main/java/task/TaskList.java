@@ -1,7 +1,9 @@
 package task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
 import exceptions.InvalidIndexException;
 
 public class TaskList {
@@ -21,9 +23,7 @@ public class TaskList {
 
     public TaskList(Task... tasks) {
         taskList = new ArrayList<>();
-        for (Task task : tasks) {
-            taskList.add(task);
-        }
+        taskList.addAll(Arrays.asList(tasks));
     }
 
     public void addTask(Task task) {
@@ -44,8 +44,8 @@ public class TaskList {
         return taskList.get(index);
     }
 
-    public List<Task> getTaskList() {
-        return taskList;
+    public int size() {
+        return taskList.size();
     }
 
     @Override

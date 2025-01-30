@@ -1,7 +1,8 @@
-import exceptions.AliceException;
-import exceptions.AliceExit;
+
 import command.Command;
 import command.Parser;
+import exceptions.AliceException;
+import exceptions.AliceExit;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
@@ -9,8 +10,8 @@ import ui.Ui;
 public class Alice {
 
     private TaskList tasks;
-    private Ui ui;
-    private Storage storage;
+    private final Ui ui;
+    private final Storage storage;
     private boolean isTestMode = false;
 
     public Alice() {
@@ -34,7 +35,7 @@ public class Alice {
         } catch (AliceException e) {
             ui.showError();
         }
-        while(true) {
+        while (true) {
             String commandString = ui.readCommand();
             Command command;
             try {
@@ -45,7 +46,6 @@ public class Alice {
                 break;
             } catch (AliceException e) {
                 ui.showError();
-                continue;
             }
         }
     }

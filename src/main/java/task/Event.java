@@ -28,4 +28,12 @@ public class Event extends Task {
     public String toDataString() {
         return "E|" + (isMarked ? "1" : "0") + "|" + name + "|" + from.format(FORMATTER) + "|" + to.format(FORMATTER);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Event event) {
+            return super.equals(obj) && this.from.equals(event.from) && this.to.equals(event.to);
+        }
+        return false;
+    }
 }

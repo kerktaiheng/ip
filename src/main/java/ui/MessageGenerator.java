@@ -1,8 +1,8 @@
 package ui;
-import java.util.Random;
+
+import utils.RandomUtils;
 
 public class MessageGenerator {
-    private static Random rand = new Random(System.currentTimeMillis());
 
     private static final String[] INTROS = {
         "what do u want",
@@ -191,49 +191,56 @@ public class MessageGenerator {
     };
 
     public static String getIntroString() {
-        return INTROS[rand.nextInt(INTROS.length)];
+        return INTROS[RandomUtils.getRandomInt(INTROS.length)];
     }
 
     public static String getGoodbyeString() {
-        return GOODBYES[rand.nextInt(GOODBYES.length)];
+        return GOODBYES[RandomUtils.getRandomInt(GOODBYES.length)];
     }
 
     public static String getGenericInsult() {
-        return GENERICINSULTS[rand.nextInt(GENERICINSULTS.length)];
+        return GENERICINSULTS[RandomUtils.getRandomInt(GENERICINSULTS.length)];
     }
 
     public static String getTaskAddedString() {
-        return TASKEDADDEDMSGS[rand.nextInt(TASKEDADDEDMSGS.length)];
+        return TASKEDADDEDMSGS[RandomUtils.getRandomInt(TASKEDADDEDMSGS.length)];
     }
 
     public static String getTaskMarkedString() {
-        return TASKMARKEDMSGS[rand.nextInt(TASKMARKEDMSGS.length)];
+        return TASKMARKEDMSGS[RandomUtils.getRandomInt(TASKMARKEDMSGS.length)];
     }
 
     public static String getTaskUnmarkedString() {
-        return TASKUNMARKEDMSGS[rand.nextInt(TASKUNMARKEDMSGS.length)];
+        return TASKUNMARKEDMSGS[RandomUtils.getRandomInt(TASKUNMARKEDMSGS.length)];
     }
 
     public static String getTaskDeletedString() {
-        return TASKDELETEDMSGS[rand.nextInt(TASKDELETEDMSGS.length)];
+        return TASKDELETEDMSGS[RandomUtils.getRandomInt(TASKDELETEDMSGS.length)];
     }
 
     public static String getErrorMsg() {
-        return ERRORMSGS[rand.nextInt(ERRORMSGS.length)];
+        return ERRORMSGS[RandomUtils.getRandomInt(ERRORMSGS.length)];
     }
     
     public static final String LOGO = 
-        "   ,---,        ,--,                                 \n" +
-        "  '  .' \\     ,--.'|     ,--,                        \n" +
-        " /  ;    '.   |  | :   ,--.'|                        \n" +
-        ":  :       \\  :  : '   |  |,                         \n" +
-        ":  |   /\\   \\ |  ' |   `--'_       ,---.     ,---.   \n" +
-        "|  :  ' ;.   :'  | |   ,' ,'|     /     \\   /     \\  \n" +
-        "|  |  ;/  \\   \\  | :   '  | |    /    / '  /    /  | \n" +
-        "'  :  | \\  \\ ,'  : |__ |  | :   .    ' /  .    ' / | \n" +
-        "|  |  '  '--' |  | '.'|'  : |__ '   ; :__ '   ;   /| \n" +
-        "|  :  :       ;  :    ;|  | '.'|'   | '.'|'   |  / | \n" +
-        "`--''          ---`-'  |  ,   /  \\   \\  /  \\   \\  /  \n" +
-        "                        ---`-'    `----'    `----'   \n";
+ """
+              ,--,                                      
+            ,--.'|     ,--,                             
+            |  | :   ,--.'|                             
+            :  : '   |  |,                              
+   ,--.--.  |  ' |   `--'_       ,---.     ,---.        
+  /       \\ '  | |   ,' ,'|     /     \\   /     \\       
+ .--.  .-. ||  | :   '  | |    /    / '  /    /  |      
+  \\__\\/ : . .'  : |__ |  | :   .    ' /  .    ' / |      
+  ," .--.; ||  | '.'|'  : |__ '   ; :__ '   ;   /|      
+ /  /  ,.  |;  :    ;|  | '.'|'   | '.'|'   |  / |___   
+;  :   .'   \\  ,   / ;  :    ;|   :    :|   :    /  .\\  
+|  ,     .-./---`-'  |  ,   /  \\   \\  /  \\   \\  /\\  ; | 
+ `--`---'             ---`-'    `----'    `----'  `--"  
 
-}  
+                                                        
+
+
+            
+            """;
+}

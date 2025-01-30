@@ -5,9 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
-import exceptions.AliceException;
+
 import exceptions.StorageDecodeException;
 import exceptions.StorageIOException;
 import task.Deadline;
@@ -15,6 +14,7 @@ import task.Event;
 import task.Task;
 import task.TaskList;
 import task.Todo;
+import utils.DateTimeUtils;
 
 public class Storage {
     private static final String DEFAULT_DIR_PATH = "data";
@@ -64,11 +64,22 @@ public class Storage {
     }
 
     public void saveTasks(TaskList tasks) throws StorageIOException {
-        Path dir = Paths.get(this.dir);
-        Path file = dir.resolve(this.file);
+        Path dirPath = Paths.get(this.dir);
+        Path filePath = dirPath.resolve(this.file);
 
         try {
-            Files.write(file, tasks.toDataString().getBytes());
+            Files.write(filePath, tasks.toDataString().getBytes());
+        } catch (IOException e) {
+            throw new StorageIOException();
+        }
+    }
+
+    public void deleteFile() throws StorageIOException {
+        Path dirPath = Paths.get(this.dir);
+        Path filePath = dirPath.resolve(this.file);
+
+        try {
+            Files.delete(filePath);
         } catch (IOException e) {
             throw new StorageIOException();
         }
@@ -79,17 +90,20 @@ public class Storage {
         boolean isMarked = taskParts[1].equals("1");
         String name = taskParts[2];
         switch(taskParts[0]) {
-        case "T":
+            case "T" -> {
             return new Todo(name, isMarked);
-        case "D":
-            LocalDateTime by = LocalDateTime.parse(taskParts[3], Task.DATETIMEFORMATTER);
+            }
+            case "D" -> {
+                LocalDateTime by = DateTimeUtils.parseDateTime(taskParts[3]);
             return new Deadline(name, by, isMarked);
-        case "E":
-            LocalDateTime from = LocalDateTime.parse(taskParts[3], Task.DATETIMEFORMATTER);
-            LocalDateTime to = LocalDateTime.parse(taskParts[4], Task.DATETIMEFORMATTER);
+            }
+            case "E" -> {
+                LocalDateTime from = DateTimeUtils.parseDateTime(taskParts[3]);
+                LocalDateTime to = DateTimeUtils.parseDateTime(taskParts[4]);
             return new Event(name, from, to, isMarked);
-        default:
-            throw new StorageDecodeException();
+            }
+            default ->
+                throw new StorageDecodeException();
         }
     }
 

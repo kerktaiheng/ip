@@ -25,4 +25,12 @@ public class Deadline extends Task {
     public String toDataString() {
         return "D|" + (isMarked ? "1" : "0") + "|" + name + "|" + by.format(FORMATTER);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Deadline deadline) {
+            return super.equals(obj) && this.by.equals(deadline.by);
+        }
+        return false;
+    }
 }
