@@ -115,6 +115,16 @@ public class Ui {
     }
 
     /**
+     * Displays the list of tasks found by a search.
+     *
+     * @param tasks the list of tasks found
+     */
+    public void showTasksFound(TaskList tasks) {
+        System.out.println(box(MessageGenerator.getGenericInsult()));
+        System.out.println(box(tasks.toString()));
+    }
+
+    /**
      * Reads a command from the user input.
      *
      * @return the command entered by the user
