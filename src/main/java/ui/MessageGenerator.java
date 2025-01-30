@@ -190,34 +190,78 @@ public class MessageGenerator {
         "...i dont know what to do",
     };
 
+    /**
+     * Returns a random introduction message.
+     *
+     * @return a random introduction message
+     */
     public static String getIntroString() {
         return INTROS[RandomUtils.getRandomInt(INTROS.length)];
     }
 
+    /**
+     * Returns a random goodbye message.
+     *
+     * @return a random goodbye message
+     */
     public static String getGoodbyeString() {
         return GOODBYES[RandomUtils.getRandomInt(GOODBYES.length)];
     }
 
+    /**
+     * Returns a random generic insult.
+     *
+     * @return a random generic insult
+     */
     public static String getGenericInsult() {
         return GENERICINSULTS[RandomUtils.getRandomInt(GENERICINSULTS.length)];
     }
 
+    /**
+     * Returns a random message indicating that a task has been added.
+     *
+     * @return a random message indicating that a task has been added
+     */
     public static String getTaskAddedString() {
         return TASKEDADDEDMSGS[RandomUtils.getRandomInt(TASKEDADDEDMSGS.length)];
     }
 
+    /**
+     * Returns a random message indicating that a task has been marked as
+     * completed.
+     *
+     * @return a random message indicating that a task has been marked as
+     * completed
+     */
     public static String getTaskMarkedString() {
         return TASKMARKEDMSGS[RandomUtils.getRandomInt(TASKMARKEDMSGS.length)];
     }
 
+    /**
+     * Returns a random message indicating that a task has been unmarked as
+     * completed.
+     *
+     * @return a random message indicating that a task has been unmarked as
+     * completed
+     */
     public static String getTaskUnmarkedString() {
         return TASKUNMARKEDMSGS[RandomUtils.getRandomInt(TASKUNMARKEDMSGS.length)];
     }
 
+    /**
+     * Returns a random message indicating that a task has been deleted.
+     *
+     * @return a random message indicating that a task has been deleted
+     */
     public static String getTaskDeletedString() {
         return TASKDELETEDMSGS[RandomUtils.getRandomInt(TASKDELETEDMSGS.length)];
     }
 
+    /**
+     * Returns a random error message.
+     *
+     * @return a random error message
+     */
     public static String getErrorMsg() {
         return ERRORMSGS[RandomUtils.getRandomInt(ERRORMSGS.length)];
     }
