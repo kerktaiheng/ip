@@ -5,6 +5,7 @@ package exceptions;
  * operations.
  */
 public class StorageIOException extends AliceException {
+
     /**
      * Constructs a new StorageIOException with no detail message.
      */

@@ -17,6 +17,7 @@ import task.Todo;
 import utils.DateTimeUtils;
 
 public class Storage {
+
     private static final String DEFAULT_DIR_PATH = "data";
     private static final String DEFAULT_FILE_PATH = "alice.txt";
 
@@ -42,7 +43,7 @@ public class Storage {
         this.dir = dir;
         this.file = file;
     }
-    
+
     /**
      * Loads tasks from the storage file.
      *
@@ -61,7 +62,7 @@ public class Storage {
             }
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
-            } 
+            }
             lines = Files.readAllLines(filePath);
         } catch (IOException e) {
             throw new StorageIOException();
@@ -123,18 +124,18 @@ public class Storage {
         String[] taskParts = taskString.split("\\|");
         boolean isMarked = taskParts[1].equals("1");
         String name = taskParts[2];
-        switch(taskParts[0]) {
+        switch (taskParts[0]) {
             case "T" -> {
-            return new Todo(name, isMarked);
+                return new Todo(name, isMarked);
             }
             case "D" -> {
                 LocalDateTime by = DateTimeUtils.parseDateTime(taskParts[3]);
-            return new Deadline(name, by, isMarked);
+                return new Deadline(name, by, isMarked);
             }
             case "E" -> {
                 LocalDateTime from = DateTimeUtils.parseDateTime(taskParts[3]);
                 LocalDateTime to = DateTimeUtils.parseDateTime(taskParts[4]);
-            return new Event(name, from, to, isMarked);
+                return new Event(name, from, to, isMarked);
             }
             default ->
                 throw new StorageDecodeException();

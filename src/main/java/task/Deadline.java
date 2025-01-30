@@ -1,4 +1,5 @@
 package task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -6,6 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Represents a deadline task with a specific due date and time.
  */
 public class Deadline extends Task {
+
     protected LocalDateTime by;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 

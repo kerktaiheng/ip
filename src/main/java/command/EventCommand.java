@@ -9,6 +9,7 @@ import task.TaskList;
 import ui.Ui;
 
 public class EventCommand extends Command {
+
     private final String name;
     private final LocalDateTime from;
     private final LocalDateTime to;

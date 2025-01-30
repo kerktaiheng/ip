@@ -6,6 +6,7 @@ package exceptions;
  *
  */
 public class AliceExit extends AliceException {
+
     /**
      * Constructs a new AliceExit with no detail message.
      */

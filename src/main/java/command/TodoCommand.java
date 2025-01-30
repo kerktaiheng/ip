@@ -11,6 +11,7 @@ import ui.Ui;
  * Represents a command to add a new todo task.
  */
 public class TodoCommand extends Command {
+
     private final String name;
 
     /**

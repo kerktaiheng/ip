@@ -3,6 +3,7 @@ package utils;
 import java.util.Arrays;
 
 public class ArrayUtils {
+
     /**
      * Finds the index of the target element in the array.
      *

@@ -17,7 +17,7 @@ public class ExitCommand extends Command {
      * @throws AliceException If an error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AliceException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws AliceException {
         storage.saveTasks(tasks);
         throw new AliceExit();
     }

@@ -19,8 +19,7 @@ public class MessageGenerator {
         "leave me alone",
         "i dont want to be your friend",
         "if i help you, will u leave?",
-        "i dont want to be here",
-    };
+        "i dont want to be here",};
 
     private static final String[] GOODBYES = {
         "bye",
@@ -33,8 +32,7 @@ public class MessageGenerator {
         "i hope i never hear from you again",
         "i hope i never talk to you again",
         "i hope i never have to deal with you again",
-        "never return",
-    };
+        "never return",};
 
     private static final String[] GENERICINSULTS = {
         "you are so annoying",
@@ -87,8 +85,7 @@ public class MessageGenerator {
         "you are so debased",
         "you are so corrupt",
         "you are so immoral",
-        "you are so sinful",
-    };
+        "you are so sinful",};
 
     private static final String[] TASKEDADDEDMSGS = GENERICINSULTS;
 
@@ -109,8 +106,7 @@ public class MessageGenerator {
         "i hope you dont think you're useful",
         "i hope you dont think you're good",
         "work harder next time?",
-        "do better next time?",
-    };
+        "do better next time?",};
 
     private static final String[] TASKUNMARKEDMSGS = {
         "typical",
@@ -142,8 +138,7 @@ public class MessageGenerator {
         "honestly expected at this point",
         "i knew u would fail",
         "i knew u would mess up",
-        "i knew u would screw up",
-    };
+        "i knew u would screw up",};
 
     private static final String[] TASKDELETEDMSGS = TASKUNMARKEDMSGS;
 
@@ -187,8 +182,7 @@ public class MessageGenerator {
         "eh???",
         "...r u ok?",
         "...i dont know what to say",
-        "...i dont know what to do",
-    };
+        "...i dont know what to do",};
 
     /**
      * Returns a random introduction message.
@@ -265,9 +259,9 @@ public class MessageGenerator {
     public static String getErrorMsg() {
         return ERRORMSGS[RandomUtils.getRandomInt(ERRORMSGS.length)];
     }
-    
-    public static final String LOGO = 
- """
+
+    public static final String LOGO
+            = """
               ,--,                                      
             ,--.'|     ,--,                             
             |  | :   ,--.'|                             

@@ -9,6 +9,7 @@ import task.TaskList;
 import ui.Ui;
 
 public class DeadlineCommand extends Command {
+
     private final String name;
     private final LocalDateTime by;
 
@@ -32,7 +33,7 @@ public class DeadlineCommand extends Command {
      * @throws AliceException If an error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AliceException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws AliceException {
         Deadline deadline = new Deadline(name, by);
         tasks.addTask(deadline);
         ui.showTaskAdded(deadline, tasks);
