@@ -1,4 +1,5 @@
 .gitignore
+settings.json
 
 # IDEA files
 /.idea/
@@ -16,6 +17,7 @@
 *.iml
 bin/
 
+/data
 /text-ui-test/ACTUAL.TXT
 /text-ui-test/data
 text-ui-test/EXPECTED-UNIX.TXT
