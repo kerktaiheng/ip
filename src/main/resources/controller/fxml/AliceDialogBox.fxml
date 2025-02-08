@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<fx:root alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="HBox" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Circle fx:id="imageCircle" fill="DODGERBLUE" radius="54.0" stroke="BLACK" strokeType="INSIDE" />
+      <VBox prefHeight="400.0" prefWidth="831.0">
+         <children>
+            <TextField fx:id="nameField">
+               <font>
+                  <Font name="TikTok Sans Regular" size="14.0" />
+               </font>
+            </TextField>
+            <TextArea fx:id="messageArea" prefHeight="632.0" prefWidth="492.0" />
+         </children>
+      </VBox>
+   </children>
+</fx:root>

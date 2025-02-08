@@ -21,9 +21,24 @@ public class ArrayUtils {
         return -1;
     }
 
+    /*
+     * Prepend an element to the start of the array. This returns a new array entirely.
+     * 
+     * @param arr the array to prepend to
+     * @param element the element to prepend
+     * @param <T> the type of elements in the array
+     * @return the new array with the element prepended
+     */
+    public static <T> T[] prepend(T[] arr, T element) {
+        T[] newArr = Arrays.copyOf(arr, arr.length + 1);
+        System.arraycopy(arr, 0, newArr, 1, arr.length);
+        newArr[0] = element;
+        return newArr;
+    }
+
     /**
      * Joins the elements of the array from the specified start index to the end
-     * of the array with the given delimiter.
+     * of the array with the given delimiter. The start index is inclusive.
      *
      * @param args the array of strings to join
      * @param delimiter the delimiter to use
@@ -50,7 +65,8 @@ public class ArrayUtils {
 
     /**
      * Joins the elements of the array from the index of the target element to
-     * the end of the array with the given delimiter.
+     * the end of the array with the given delimiter. Both indices are
+     * exclusive.
      *
      * @param args the array of strings to join
      * @param delimiter the delimiter to use
