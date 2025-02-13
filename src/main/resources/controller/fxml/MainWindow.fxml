@@ -90,28 +90,28 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane fx:id="splitPane" dividerPositions="0.2505567928730512, 0.7973273942093542" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane fx:id="splitPane" dividerPositions="0.3, 0.8" focusTraversable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
-        <AnchorPane fx:id="leftSidebar" />
-            <VBox prefHeight="200.0" prefWidth="100.0">
+        <AnchorPane fx:id="leftSidebar" maxWidth="-Infinity" prefWidth="450.0" SplitPane.resizableWithParent="false" />
+            <VBox prefHeight="200.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
                <children>
-              <ScrollPane fx:id="chatScrollPane" prefHeight="595.0" prefWidth="485.0">
+              <ScrollPane fx:id="chatScrollPane" VBox.vgrow="ALWAYS">
                      <content>
-                        <VBox fx:id="chatVBox" prefHeight="521.0" prefWidth="485.0" />
+                        <VBox fx:id="chatVBox" />
                      </content>
               </ScrollPane>
-                  <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="BOTTOM_CENTER">
                      <children>
-                        <TextField fx:id="userInput" prefHeight="27.0" prefWidth="437.0" />
-                        <Button fx:id="sendButton" mnemonicParsing="false" onMouseClicked="#handleUserInput" prefHeight="32.0" prefWidth="51.0" text="Send" />
+                        <TextField fx:id="userInput" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="sendButton" mnemonicParsing="false" onMouseClicked="#handleUserInput" text="Send" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-        <AnchorPane fx:id="rightSideBar" />
+        <AnchorPane fx:id="rightSideBar" maxWidth="-Infinity" prefWidth="300.0" SplitPane.resizableWithParent="false" />
       </items>
     </SplitPane>
-    <HBox id="HBox" fx:id="statusBar" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+    <HBox id="HBox" fx:id="statusBar" alignment="CENTER_LEFT" maxHeight="20.0" spacing="5.0" VBox.vgrow="NEVER">
       <children>
         <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
           <font>

@@ -4,11 +4,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import model.Alice;
 import model.exception.AliceExit;
@@ -38,6 +40,8 @@ public class MainWindow extends VBox {
     @FXML
     public void initialize() {
         chatScrollPane.vvalueProperty().bind(chatVBox.heightProperty());
+        chatScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        chatVBox.prefWidthProperty().bind(chatScrollPane.widthProperty());
     }
 
     /**
@@ -72,8 +76,12 @@ public class MainWindow extends VBox {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        StackPane stackPane = new StackPane();
         UserDialogBox userDialogBox = UserDialogBox.of(input);
-        chatVBox.getChildren().add(userDialogBox);
+        stackPane.getChildren().add(userDialogBox);
+        stackPane.prefWidthProperty().bind(chatVBox.widthProperty());
+        StackPane.setAlignment(userDialogBox, Pos.BOTTOM_RIGHT);
+        chatVBox.getChildren().add(stackPane);
         try {
             alice.run(input);
         } catch (AliceExit ex) {
