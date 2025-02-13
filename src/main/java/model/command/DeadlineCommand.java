@@ -3,7 +3,6 @@ package model.command;
 import java.time.LocalDateTime;
 
 import model.exception.AliceException;
-import model.response.MessageGenerator;
 import model.response.Response;
 import model.storage.Storage;
 import model.task.Deadline;
@@ -38,7 +37,7 @@ public class DeadlineCommand extends Command {
         Deadline deadline = new Deadline(name, by);
         tasks.addTask(deadline);
         storage.saveTasks(tasks);
-        return new Response(MessageGenerator.getTaskAddedString(), deadline.toString());
+        return new Response(Response.RESPONSE_TYPE.TASK_ADDED, deadline.toString());
     }
 
 }

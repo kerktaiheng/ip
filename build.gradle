@@ -49,6 +49,7 @@ application {
 shadowJar {
     archiveBaseName = "alice"
     archiveClassifier = null
+    archiveFileName = "alice.jar"
 }
 
 run {

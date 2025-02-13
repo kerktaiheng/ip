@@ -1,8 +1,8 @@
 package model.command;
 
 import model.exception.AliceException;
-import model.response.MessageGenerator;
 import model.response.Response;
+import model.response.Response.RESPONSE_TYPE;
 import model.storage.Storage;
 import model.task.TaskList;
 
@@ -17,7 +17,7 @@ public class ListCommand extends Command {
      */
     @Override
     public Response execute(TaskList tasks, Storage storage) throws AliceException {
-        return new Response(MessageGenerator.getListTasksString(), tasks.toString());
+        return new Response(RESPONSE_TYPE.LIST_TASKS, tasks.toString());
     }
 
 }

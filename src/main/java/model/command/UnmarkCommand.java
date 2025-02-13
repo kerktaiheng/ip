@@ -1,7 +1,6 @@
 package model.command;
 
 import model.exception.AliceException;
-import model.response.MessageGenerator;
 import model.response.Response;
 import model.storage.Storage;
 import model.task.Task;
@@ -35,6 +34,6 @@ public class UnmarkCommand extends Command {
         Task task = tasks.getTask(index);
         task.unmark();
         storage.saveTasks(tasks);
-        return new Response(MessageGenerator.getTaskUnmarkedString(), task.toString());
+        return new Response(Response.RESPONSE_TYPE.TASK_ADDED, task.toString());
     }
 }
