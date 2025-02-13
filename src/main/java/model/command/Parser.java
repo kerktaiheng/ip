@@ -3,6 +3,7 @@ package model.command;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+
 import model.exception.AliceException;
 import model.exception.CommandFormatException;
 import utils.ArrayUtils;
@@ -19,6 +20,7 @@ public class Parser {
      * @throws AliceException If the input format is incorrect.
      */
     public static Command parseCommand(String input) throws AliceException {
+        assert input != null : "Input should not be null";
         String[] args = input.split(" ");
         int numArgs = args.length;
         String command = args[0];
