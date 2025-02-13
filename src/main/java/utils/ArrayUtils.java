@@ -46,6 +46,8 @@ public class ArrayUtils {
      * @return the joined string
      */
     public static String joinFromIndex(String[] args, String delimiter, int start) {
+        assert start >= 0 : "Start index must be non-negative";
+        assert start < args.length : "Start index must be less than the length of the array";
         return String.join(delimiter, Arrays.copyOfRange(args, start, args.length));
     }
 
@@ -60,6 +62,11 @@ public class ArrayUtils {
      * @return the joined string
      */
     public static String joinFromIndex(String[] args, String delimiter, int start, int end) {
+        assert start >= 0 : "Start index must be non-negative";
+        assert start < args.length : "Start index must be less than the length of the array";
+        assert end >= 0 : "End index must be non-negative";
+        assert end <= args.length : "End index must be less than or equal to the length of the array";
+        assert start <= end : "Start index must be less than or equal to the end index";
         return String.join(delimiter, Arrays.copyOfRange(args, start, end));
     }
 
