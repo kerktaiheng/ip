@@ -1,7 +1,6 @@
 package model.command;
 
 import model.exception.AliceException;
-import model.response.MessageGenerator;
 import model.response.Response;
 import model.storage.Storage;
 import model.task.Task;
@@ -36,6 +35,6 @@ public class TodoCommand extends Command {
         Task task = new Todo(name);
         tasks.addTask(task);
         storage.saveTasks(tasks);
-        return new Response(MessageGenerator.getTaskAddedString(), task.toString());
+        return new Response(Response.RESPONSE_TYPE.TASK_ADDED, task.toString());
     }
 }

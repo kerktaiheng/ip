@@ -3,7 +3,6 @@ package model.command;
 import java.time.LocalDateTime;
 
 import model.exception.AliceException;
-import model.response.MessageGenerator;
 import model.response.Response;
 import model.storage.Storage;
 import model.task.Event;
@@ -42,7 +41,7 @@ public class EventCommand extends Command {
         Event event = new Event(name, from, to);
         tasks.addTask(event);
         storage.saveTasks(tasks);
-        return new Response(MessageGenerator.getTaskAddedString(), event.toString());
+        return new Response(Response.RESPONSE_TYPE.TASK_ADDED, event.toString());
     }
 
 }

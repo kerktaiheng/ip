@@ -1,7 +1,6 @@
 package model.command;
 
 import model.exception.AliceException;
-import model.response.MessageGenerator;
 import model.response.Response;
 import model.storage.Storage;
 import model.task.Task;
@@ -33,6 +32,6 @@ public class MarkCommand extends Command {
         Task task = tasks.getTask(index);
         task.mark();
         storage.saveTasks(tasks);
-        return new Response(MessageGenerator.getTaskMarkedString(), task.toString());
+        return new Response(Response.RESPONSE_TYPE.TASK_MARKED, task.toString());
     }
 }

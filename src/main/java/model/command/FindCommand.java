@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
 import model.exception.AliceException;
-import model.response.MessageGenerator;
 import model.response.Response;
 import model.storage.Storage;
 import model.task.Task;
@@ -26,6 +25,6 @@ public class FindCommand extends Command {
         List<BoundExtractedResult<Task>> match = FuzzySearch.extractTop(keyword, taskList, Task::toString, 10);
         List<Task> matchTaskList = match.stream().map(BoundExtractedResult::getReferent).collect(Collectors.toList());
         TaskList matchTasks = new TaskList(matchTaskList);
-        return new Response(MessageGenerator.getTasksFoundString(), matchTasks.toString());
+        return new Response(Response.RESPONSE_TYPE.TASKS_FOUND, matchTasks.toString());
     }
 }

@@ -2,7 +2,6 @@ package model.command;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 
 import model.exception.AliceException;
 import model.exception.CommandFormatException;
@@ -12,6 +11,102 @@ public class Parser {
 
     private static final DateTimeFormatter DATETIMEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    private static Command parseByeCommand(String[] args) throws AliceException {
+        if (args.length != 1) {
+            throw new CommandFormatException();
+        }
+        return new ExitCommand();
+    }
+
+    private static Command parseListCommand(String[] args) throws AliceException {
+        if (args.length != 1) {
+            throw new CommandFormatException();
+        }
+        return new ListCommand();
+    }
+
+    private static Command parseMarkCommand(String[] args) throws AliceException {
+        if (args.length != 2) {
+            throw new CommandFormatException();
+        }
+        try {
+            int index = Integer.parseInt(args[1]);
+            return new MarkCommand(index);
+        } catch (NumberFormatException e) {
+            throw new CommandFormatException();
+        }
+    }
+
+    private static Command parseUnmarkCommand(String[] args) throws AliceException {
+        if (args.length != 2) {
+            throw new CommandFormatException();
+        }
+        try {
+            int index = Integer.parseInt(args[1]);
+            return new UnmarkCommand(index);
+        } catch (NumberFormatException e) {
+            throw new CommandFormatException();
+        }
+    }
+
+    private static Command parseDeleteCommand(String[] args) throws AliceException {
+        if (args.length != 2) {
+            throw new CommandFormatException();
+        }
+        try {
+            int index = Integer.parseInt(args[1]);
+            return new DeleteCommand(index);
+        } catch (NumberFormatException e) {
+            throw new CommandFormatException();
+        }
+    }
+
+    private static Command parseTodoCommand(String[] args) throws AliceException {
+        if (args.length < 2) {
+            throw new CommandFormatException();
+        }
+        String todoName = ArrayUtils.joinFromFind(args, " ", "todo");
+        return new TodoCommand(todoName);
+    }
+
+    private static Command parseDeadlineCommand(String[] args) throws AliceException {
+        if (args.length < 4) {
+            throw new CommandFormatException();
+        }
+        String deadlineName = ArrayUtils.joinFromFind(args, " ", "deadline", "/by");
+        String byString = ArrayUtils.joinFromFind(args, " ", "/by");
+        try {
+            LocalDateTime by = parseDateTime(byString);
+            return new DeadlineCommand(deadlineName, by);
+        } catch (Exception e) {
+            throw new CommandFormatException();
+        }
+    }
+
+    private static Command parseEventCommand(String[] args) throws AliceException {
+        if (args.length < 6) {
+            throw new CommandFormatException();
+        }
+        String eventName = ArrayUtils.joinFromFind(args, " ", "event", "/from");
+        String fromString = ArrayUtils.joinFromFind(args, " ", "/from", "/to");
+        String toString = ArrayUtils.joinFromFind(args, " ", "/to");
+        try {
+            LocalDateTime from = parseDateTime(fromString);
+            LocalDateTime to = parseDateTime(toString);
+            return new EventCommand(eventName, from, to);
+        } catch (Exception e) {
+            throw new CommandFormatException();
+        }
+    }
+
+    private static Command parseFindCommand(String[] args) throws AliceException {
+        if (args.length < 2) {
+            throw new CommandFormatException();
+        }
+        String keyword = ArrayUtils.joinFromIndex(args, " ", 1);
+        return new FindCommand(keyword);
+    }
+
     /**
      * Parses the input string and returns the corresponding Command object.
      *
@@ -20,97 +115,35 @@ public class Parser {
      * @throws AliceException If the input format is incorrect.
      */
     public static Command parseCommand(String input) throws AliceException {
-        assert input != null : "Input should not be null";
         String[] args = input.split(" ");
-        int numArgs = args.length;
         String command = args[0];
         switch (command) {
             case "bye" -> {
-                if (numArgs != 1) {
-                    throw new CommandFormatException();
-                }
-                return new ExitCommand();
+                return parseByeCommand(args);
             }
             case "list" -> {
-                if (numArgs != 1) {
-                    throw new CommandFormatException();
-                }
-                return new ListCommand();
+                return parseListCommand(args);
             }
             case "mark" -> {
-                if (numArgs != 2) {
-                    throw new CommandFormatException();
-                }
-                try {
-                    int index = Integer.parseInt(args[1]);
-                    return new MarkCommand(index);
-                } catch (NumberFormatException e) {
-                    throw new CommandFormatException();
-                }
+                return parseMarkCommand(args);
             }
             case "unmark" -> {
-                if (numArgs != 2) {
-                    throw new CommandFormatException();
-                }
-                try {
-                    int index = Integer.parseInt(args[1]);
-                    return new UnmarkCommand(index);
-                } catch (NumberFormatException e) {
-                    throw new CommandFormatException();
-                }
+                return parseUnmarkCommand(args);
             }
             case "delete" -> {
-                if (numArgs != 2) {
-                    throw new CommandFormatException();
-                }
-                try {
-                    int index = Integer.parseInt(args[1]);
-                    return new DeleteCommand(index);
-                } catch (NumberFormatException e) {
-                    throw new CommandFormatException();
-                }
+                return parseDeleteCommand(args);
             }
             case "todo" -> {
-                if (numArgs < 2) {
-                    throw new CommandFormatException();
-                }
-                String todoName = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
-                return new TodoCommand(todoName);
+                return parseTodoCommand(args);
             }
             case "deadline" -> {
-                if (numArgs < 4) {
-                    throw new CommandFormatException();
-                }
-                String deadlineName = ArrayUtils.joinFromFind(args, " ", "deadline", "/by");
-                String byString = ArrayUtils.joinFromFind(args, " ", "/by");
-                try {
-                    LocalDateTime by = parseDateTime(byString);
-                    return new DeadlineCommand(deadlineName, by);
-                } catch (Exception e) {
-                    throw new CommandFormatException();
-                }
+                return parseDeadlineCommand(args);
             }
             case "event" -> {
-                if (numArgs < 6) {
-                    throw new CommandFormatException();
-                }
-                String eventName = ArrayUtils.joinFromFind(args, " ", "event", "/from");
-                String fromString = ArrayUtils.joinFromFind(args, " ", "/from", "/to");
-                String toString = ArrayUtils.joinFromFind(args, " ", "/to");
-                try {
-                    LocalDateTime from = parseDateTime(fromString);
-                    LocalDateTime to = parseDateTime(toString);
-                    return new EventCommand(eventName, from, to);
-                } catch (Exception e) {
-                    throw new CommandFormatException();
-                }
+                return parseEventCommand(args);
             }
             case "find" -> {
-                if (numArgs < 2) {
-                    throw new CommandFormatException();
-                }
-                String keyword = ArrayUtils.joinFromIndex(args, " ", 1);
-                return new FindCommand(keyword);
+                return parseFindCommand(args);
             }
             default ->
                 throw new CommandFormatException();
