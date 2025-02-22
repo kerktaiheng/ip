@@ -2,7 +2,6 @@ package model.command;
 
 import model.exception.AliceException;
 import model.exception.AliceExit;
-import model.response.MessageGenerator;
 import model.response.Response;
 import model.storage.Storage;
 import model.task.TaskList;

@@ -1,7 +1,9 @@
 package model;
 
+import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 import model.command.Command;
 import model.command.Parser;
@@ -21,6 +23,14 @@ public class Alice {
     private TaskList tasks;
     private final Storage storage;
     private final BlockingQueue<Response> responseBuffer;
+    private final Random random = new Random(System.currentTimeMillis());
+
+    public static enum ANGER_LEVEL {
+        ANNOYED, ANGRY, ENRAGED
+    }
+
+    private static final double ANGER_CHANCE = 0.3;
+    private ANGER_LEVEL angerLevel = ANGER_LEVEL.ANNOYED;
 
     /**
      * Constructs an Alice object and initializes the task list and storage.
@@ -29,6 +39,35 @@ public class Alice {
         this.tasks = new TaskList();
         this.storage = new Storage();
         this.responseBuffer = new LinkedBlockingQueue<>();
+        startInsultThread();
+    }
+
+    private void startInsultThread() {
+        Thread insultThread = new Thread(() -> {
+            while (true) {
+                try {
+                    long interval = getInsultInterval();
+                    TimeUnit.MILLISECONDS.sleep(interval);
+                    responseBuffer.add(new Response(RESPONSE_TYPE.GENERIC_INSULT));
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+        });
+        insultThread.setDaemon(true);
+        insultThread.start();
+    }
+
+    private long getInsultInterval() {
+        return switch (angerLevel) {
+            case ANNOYED ->
+                TimeUnit.MINUTES.toMillis(2);
+            case ANGRY ->
+                TimeUnit.MINUTES.toMillis(1);
+            case ENRAGED ->
+                TimeUnit.SECONDS.toMillis(30);
+        };
     }
 
     /**
@@ -51,19 +90,53 @@ public class Alice {
             Command command = Parser.parseCommand(input);
             Response response = command.execute(tasks, storage);
             responseBuffer.add(response);
+            if (random.nextDouble() < ANGER_CHANCE) {
+                increaseAngerLevel();
+            }
         } catch (AliceExit e) {
             throw e;
         } catch (AliceException e) {
-            responseBuffer.add(new Response(RESPONSE_TYPE.ERROR, e.getMessage()));
+            responseBuffer.add(new Response(RESPONSE_TYPE.ERROR));
         }
     }
 
+    private void increaseAngerLevel() {
+        switch (this.angerLevel) {
+            case ANNOYED ->
+                angerLevel = ANGER_LEVEL.ANGRY;
+            case ANGRY ->
+                angerLevel = ANGER_LEVEL.ENRAGED;
+            case ENRAGED -> {
+            }
+        }
+    }
+
+    public String getImageUrl() {
+        return switch (this.angerLevel) {
+            case ANNOYED ->
+                "images/alice_annoyed.png";
+            case ANGRY ->
+                "images/alice_angry.png";
+            case ENRAGED ->
+                "images/alice_enraged.png";
+        };
+    }
+
     public Response takeResponse() throws InterruptedException {
-        return responseBuffer.take();
+        Response response;
+        synchronized (responseBuffer) {
+            response = responseBuffer.take();
+            responseBuffer.notify();
+        }
+        return response;
     }
 
     public void quit() {
         responseBuffer.add(new Response(RESPONSE_TYPE.GOODBYE));
+    }
+
+    public ANGER_LEVEL getAngerLevel() {
+        return angerLevel;
     }
 
 }

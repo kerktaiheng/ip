@@ -5,11 +5,11 @@ import java.util.concurrent.Executors;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import model.Alice;
@@ -22,9 +22,7 @@ import model.response.Response;
 public class MainWindow extends VBox {
 
     @FXML
-    private SplitPane mainSplitPane;
-    @FXML
-    private AnchorPane leftSidebar;
+    private StackPane leftSidebar;
     @FXML
     private ScrollPane chatScrollPane;
     @FXML
@@ -32,16 +30,22 @@ public class MainWindow extends VBox {
     @FXML
     private TextField userInput;
     @FXML
-    private Button sendButton;
+    private StackPane rightSidebar;
 
     private Alice alice;
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+    private AliceSidebar aliceSidebar = new AliceSidebar();
 
     @FXML
     public void initialize() {
         chatScrollPane.vvalueProperty().bind(chatVBox.heightProperty());
         chatScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         chatVBox.prefWidthProperty().bind(chatScrollPane.widthProperty());
+
+        FormSidebar formSidebar = new FormSidebar(this);
+        leftSidebar.getChildren().add(formSidebar);
+        StackPane.setAlignment(formSidebar, Pos.TOP_CENTER);
     }
 
     /**
@@ -50,8 +54,13 @@ public class MainWindow extends VBox {
     public void setAlice(Alice alice) {
         this.alice = alice;
         alice.initialize();
+
+        aliceSidebar.setAlice(alice);
+        rightSidebar.getChildren().add(aliceSidebar);
+        StackPane.setAlignment(aliceSidebar, Pos.TOP_CENTER);
+
         startListeningToAlice();
-        System.out.println("Alice is ready!");
+        System.out.println("alice is ready (and more than excited to see you)");
     }
 
     private void startListeningToAlice() {
@@ -59,10 +68,13 @@ public class MainWindow extends VBox {
             try {
                 while (true) {
                     Response response = alice.takeResponse();
+                    String imageUrl = alice.getImageUrl();
                     javafx.application.Platform.runLater(() -> {
-                        AliceDialogBox[] aliceDialogBoxes = AliceDialogBox.fromResponse(response);
+                        AliceDialogBox[] aliceDialogBoxes = AliceDialogBox.fromResponse(response, imageUrl);
                         chatVBox.getChildren().addAll(aliceDialogBoxes);
                     });
+                    aliceSidebar.updateAliceImage();
+                    aliceSidebar.setAngerLabel();
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
@@ -87,14 +99,34 @@ public class MainWindow extends VBox {
         } catch (AliceExit ex) {
             alice.quit();
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 executorService.shutdown();
             } catch (InterruptedException e) {
             } finally {
                 System.exit(0);
             }
         }
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+        }
         userInput.clear();
+    }
+
+    protected void handleUserInput(String input) {
+        userInput.setText(input);
+        handleUserInput();
+    }
+
+    @FXML
+    private void onKeyPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            handleUserInput();
+        }
+    }
+
+    protected Alice getAlice() {
+        return this.alice;
     }
 
 }

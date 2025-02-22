@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 public class DateTimeUtils {
 
     //This specifies the DateTime format for all DateTime objects in the program
-    public static final DateTimeFormatter DATETIMEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Parses a string representation of a date and time into a LocalDateTime
@@ -16,7 +16,7 @@ public class DateTimeUtils {
      * @return the parsed LocalDateTime object
      */
     public static LocalDateTime parseDateTime(String dateTime) {
-        return LocalDateTime.parse(dateTime, DATETIMEFORMATTER);
+        return LocalDateTime.parse(dateTime, DATETIME_FORMATTER);
     }
 
     /**
@@ -26,6 +26,20 @@ public class DateTimeUtils {
      * @return the formatted string representation of the date and time
      */
     public static String formatDateTime(LocalDateTime dateTime) {
-        return dateTime.format(DATETIMEFORMATTER);
+        return dateTime.format(DATETIME_FORMATTER);
+    }
+
+    /**
+     * Formats raw date and time inputs into a string representation according
+     * to DATETIME_FORMATTER.
+     *
+     * @param date the date part of the input
+     * @param hour the hour part of the input
+     * @param minute the minute part of the input
+     * @return the formatted string representation of the date and time
+     */
+    public static String formatRawDateTime(String date, String hour, String minute) {
+        LocalDateTime dateTime = LocalDateTime.parse(date + " " + hour + ":" + minute, DATETIME_FORMATTER);
+        return dateTime.format(DATETIME_FORMATTER);
     }
 }
