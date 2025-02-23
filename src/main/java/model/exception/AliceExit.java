@@ -8,7 +8,7 @@ package model.exception;
 public class AliceExit extends AliceException {
 
     /**
-     * Constructs a new AliceExit with no detail message.
+     * Constructs a new AliceExit
      */
     public AliceExit() {
         super();

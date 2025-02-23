@@ -12,6 +12,9 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import utils.UiUtils;
 
+/**
+ * Abstract class representing a dialog box.
+ */
 public abstract class DialogBox extends HBox {
 
     protected static final String DEFAULT_USER_NAME = "annoyinguser";
@@ -26,6 +29,13 @@ public abstract class DialogBox extends HBox {
     @FXML
     private TextArea messageArea;
 
+    /**
+     * Fills the dialog box with the given message, name, and image URL.
+     *
+     * @param message the message
+     * @param name the name
+     * @param imageUrl the image URL
+     */
     protected void fill(String message, String name, String imageUrl) {
         nameField.setText(name);
         messageArea.setText(message);
@@ -36,6 +46,13 @@ public abstract class DialogBox extends HBox {
         imageCircle.setFill(new ImagePattern(new Image(Main.class.getResourceAsStream(imageUrl))));
     }
 
+    /**
+     * Computes the preferred height of the message area.
+     *
+     * @param messageArea the message area
+     * @param message the message
+     * @return the preferred height
+     */
     protected static double computeMessageAreaPrefHeight(TextArea messageArea, String message) {
         final double BUFFER = 50;
         double fontSizePixels = UiUtils.pointsToPixels(messageArea.getFont().getSize());

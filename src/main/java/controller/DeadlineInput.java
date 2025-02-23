@@ -9,6 +9,9 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import utils.DateTimeUtils;
 
+/**
+ * Controller for the deadline input form.
+ */
 public class DeadlineInput extends TaskInput {
 
     @FXML
@@ -20,6 +23,9 @@ public class DeadlineInput extends TaskInput {
     @FXML
     private ChoiceBox<String> byMinuteChoiceBox;
 
+    /**
+     * Constructs a DeadlineInput.
+     */
     public DeadlineInput() {
         FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("fxml/DeadlineInput.fxml"));
         fxmlLoader.setController(this);
@@ -31,6 +37,9 @@ public class DeadlineInput extends TaskInput {
         populateChoiceBoxes();
     }
 
+    /**
+     * Populates the choice boxes with hour and minute values.
+     */
     private void populateChoiceBoxes() {
         for (int i = 0; i < 24; i++) {
             byHourChoiceBox.getItems().add(String.format("%02d", i));
@@ -41,6 +50,11 @@ public class DeadlineInput extends TaskInput {
         }
     }
 
+    /**
+     * Generates the input string for the deadline task.
+     *
+     * @return the input string
+     */
     @Override
     public String generateInput() {
         String name = nameField.getText();
@@ -50,6 +64,9 @@ public class DeadlineInput extends TaskInput {
         return "deadline " + name + " /by " + dateTime;
     }
 
+    /**
+     * Clears the input fields.
+     */
     @Override
     public void clear() {
         nameField.clear();

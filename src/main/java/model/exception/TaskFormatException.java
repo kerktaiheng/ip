@@ -8,7 +8,7 @@ import model.response.MessageGenerator;
 public class TaskFormatException extends AliceException {
 
     /**
-     * Constructs a new TaskFormatException with no detail message.
+     * Constructs a new TaskFormatException
      */
     public TaskFormatException() {
         super();
