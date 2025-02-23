@@ -81,7 +81,7 @@ public class Alice {
         try {
             this.tasks = storage.loadTasks();
         } catch (StorageIOException e) {
-            responseBuffer.add(new Response(RESPONSE_TYPE.ERROR)); 
+            responseBuffer.add(new Response(RESPONSE_TYPE.ERROR, e.getMessage()));
         }
     }
 
@@ -96,7 +96,7 @@ public class Alice {
         } catch (AliceExit e) {
             throw e;
         } catch (AliceException e) {
-            responseBuffer.add(new Response(RESPONSE_TYPE.ERROR));
+            responseBuffer.add(new Response(RESPONSE_TYPE.ERROR, e.getMessage()));
         }
     }
 

@@ -21,7 +21,7 @@
                   <Insets />
                </VBox.margin>
             </TextField>
-            <TextArea fx:id="messageArea" editable="false" maxHeight="1.7976931348623157E308" maxWidth="600.0" VBox.vgrow="ALWAYS">
+            <TextArea fx:id="messageArea" editable="false" maxHeight="1.7976931348623157E308" maxWidth="600.0" wrapText="true" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="TikTok Sans Regular" size="12.0" />
                </font></TextArea>

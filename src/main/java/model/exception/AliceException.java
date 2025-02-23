@@ -9,6 +9,6 @@ public class AliceException extends Exception {
      * Constructs a new AliceException with no detail message.
      */
     public AliceException() {
-        super("");
+        super();
     }
 }

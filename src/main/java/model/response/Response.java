@@ -14,20 +14,41 @@ public class Response {
 
     private final String[] messages;
 
+    /**
+     * Default constructor for a response. Takes a response type enum as the
+     * first argument, and a vararg of verbatim messages to be appended to the
+     * response. The enum type is used to generate the first message in the
+     * response.
+     *
+     * @param type The type of the response.
+     * @param messages The messages to be appended to the response.
+     */
     public Response(RESPONSE_TYPE type, String... messages) {
         String firstMessage = switch(type) {
-            case INTRO -> MessageGenerator.getIntroString();
-            case TASK_ADDED -> MessageGenerator.getTaskAddedString();
-            case TASK_DELETED -> MessageGenerator.getTaskDeletedString();
-            case TASK_MARKED -> MessageGenerator.getTaskMarkedString();
-            case TASK_UNMARKED -> MessageGenerator.getTaskUnmarkedString();
-            case LIST_TASKS -> MessageGenerator.getListTasksString();
-            case TASKS_FOUND -> MessageGenerator.getTasksFoundString();
-            case GOODBYE -> MessageGenerator.getGoodbyeString();
-            case ERROR -> MessageGenerator.getErrorString();
+            case INTRO ->
+                MessageGenerator.getIntroMessage();
+            case TASK_ADDED ->
+                MessageGenerator.getTaskAddedMessage();
+            case TASK_DELETED ->
+                MessageGenerator.getTaskDeletedMessage();
+            case TASK_MARKED ->
+                MessageGenerator.getTaskMarkedMessage();
+            case TASK_UNMARKED ->
+                MessageGenerator.getTaskUnmarkedMessage();
+            case LIST_TASKS ->
+                MessageGenerator.getListTasksMessage();
+            case TASKS_FOUND ->
+                MessageGenerator.getTasksFoundMessage();
+            case GOODBYE ->
+                MessageGenerator.getGoodbyeMessage();
+            case ERROR ->
+                MessageGenerator.getErrorMessgae();
             case GENERIC_INSULT -> MessageGenerator.getGenericInsult();
         };
-        this.messages = ArrayUtils.prepend(messages, firstMessage);
+        messages = ArrayUtils.prepend(messages, firstMessage);
+        this.messages = ArrayUtils.map(messages, msg -> {
+            return msg.length() > 0 ? msg : MessageGenerator.getEmptyMessage();
+        });
     }
 
     public Response(String... messages) {

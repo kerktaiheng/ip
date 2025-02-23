@@ -5,17 +5,17 @@ import model.response.MessageGenerator;
 /**
  * Represents an exception thrown when a task format is invalid.
  */
-public class TaskFormatException extends AliceException {
+public class EventChronologyException extends AliceException {
 
     /**
      * Constructs a new TaskFormatException with no detail message.
      */
-    public TaskFormatException() {
+    public EventChronologyException() {
         super();
     }
 
     @Override
     public String getMessage() {
-        return MessageGenerator.getTaskFormatExceptionMessage();
+        return MessageGenerator.getEventChronologyExceptionMessage();
     }
 }

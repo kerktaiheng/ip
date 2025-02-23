@@ -35,8 +35,9 @@ public class DeadlineInput extends TaskInput {
         for (int i = 0; i < 24; i++) {
             byHourChoiceBox.getItems().add(String.format("%02d", i));
         }
-        for (int i = 0; i < 60; i++) {
-            byMinuteChoiceBox.getItems().add(String.format("%02d", i));
+        for (int i = 0; i < 12; i++) {
+            byMinuteChoiceBox.getItems().add(String.format("%02d", i * 5
+            ));
         }
     }
 

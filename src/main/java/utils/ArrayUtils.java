@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.Arrays;
+import java.util.function.Function;
 
 public class ArrayUtils {
 
@@ -33,6 +34,23 @@ public class ArrayUtils {
         T[] newArr = Arrays.copyOf(arr, arr.length + 1);
         System.arraycopy(arr, 0, newArr, 1, arr.length);
         newArr[0] = element;
+        return newArr;
+    }
+
+    /**
+     * Maps each element in the array to a new element using the given mapper.
+     * This returns a new array entirely.
+     *
+     * @param arr the array to append to
+     * @param mapper the mapper function to apply to each element
+     * @param <T> the type of elements in the array
+     * @return the new mapped array
+     */
+    public static <T> T[] map(T[] arr, Function<T, T> mapper) {
+        T[] newArr = Arrays.copyOf(arr, arr.length);
+        for (int i = 0; i < arr.length; i++) {
+            newArr[i] = mapper.apply(arr[i]);
+        }
         return newArr;
     }
 

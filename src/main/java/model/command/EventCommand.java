@@ -3,6 +3,7 @@ package model.command;
 import java.time.LocalDateTime;
 
 import model.exception.AliceException;
+import model.exception.EventChronologyException;
 import model.response.Response;
 import model.storage.Storage;
 import model.task.Event;
@@ -38,6 +39,9 @@ public class EventCommand extends Command {
      */
     @Override
     public Response execute(TaskList tasks, Storage storage) throws AliceException {
+        if (from.isAfter(to)) {
+            throw new EventChronologyException();
+        }
         Event event = new Event(name, from, to);
         tasks.addTask(event);
         storage.saveTasks(tasks);

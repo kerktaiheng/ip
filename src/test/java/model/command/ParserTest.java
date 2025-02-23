@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import model.exception.AliceException;
 import model.exception.CommandFormatException;
+import utils.RandomUtils;
 
 public class ParserTest {
 
@@ -41,25 +42,32 @@ public class ParserTest {
 
     @Test
     public void parseCommand_todoCommand() throws AliceException {
-        Command command = Parser.parseCommand("todo read book");
+        String todoName = RandomUtils.getRandomString(10);
+        Command command = Parser.parseCommand("todo " + todoName);
         assertTrue(command instanceof TodoCommand);
     }
 
     @Test
     public void parseCommand_deadlineCommand() throws AliceException {
-        Command command = Parser.parseCommand("deadline submit report /by 2023-12-31 23:59");
+        String deadlineName = RandomUtils.getRandomString(10);
+        String byDate = RandomUtils.getRandomDateTimeString();
+        Command command = Parser.parseCommand("deadline " + deadlineName + " /by " + byDate);
         assertTrue(command instanceof DeadlineCommand);
     }
 
     @Test
     public void parseCommand_eventCommand() throws AliceException {
-        Command command = Parser.parseCommand("event project meeting /from 2023-12-01 10:00 /to 2023-12-01 12:00");
+        String eventName = RandomUtils.getRandomString(10);
+        String fromDate = RandomUtils.getRandomDateTimeString();
+        String toDate = RandomUtils.getRandomDateTimeString();
+        Command command = Parser.parseCommand("event " + eventName + " /from " + fromDate + " /to " + toDate);
         assertTrue(command instanceof EventCommand);
     }
 
     @Test
     public void parseCommand_findCommand() throws AliceException {
-        Command command = Parser.parseCommand("find book");
+        String keyword = RandomUtils.getRandomString(5);
+        Command command = Parser.parseCommand("find " + keyword);
         assertTrue(command instanceof FindCommand);
     }
 

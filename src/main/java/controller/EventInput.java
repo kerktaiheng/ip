@@ -42,9 +42,9 @@ public class EventInput extends TaskInput {
             fromHourChoiceBox.getItems().add(String.format("%02d", i));
             toHourChoiceBox.getItems().add(String.format("%02d", i));
         }
-        for (int i = 0; i < 60; i++) {
-            fromMinuteChoiceBox.getItems().add(String.format("%02d", i));
-            toMinuteChoiceBox.getItems().add(String.format("%02d", i));
+        for (int i = 0; i < 12; i++) {
+            fromMinuteChoiceBox.getItems().add(String.format("%02d", i * 5));
+            toMinuteChoiceBox.getItems().add(String.format("%02d", i * 5));
         }
     }
 
