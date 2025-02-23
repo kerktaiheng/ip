@@ -1,16 +1,23 @@
 package controller;
 
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Alice;
 import model.exception.AliceExit;
 import model.response.Response;
@@ -140,6 +147,22 @@ public class MainWindow extends VBox {
     private void onKeyPressed(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             handleUserInput();
+        }
+    }
+
+    @FXML
+    private void onHelpMenuItemAction() {
+        System.out.println("Help menu item clicked");
+        try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(Main.class.getResource("fxml/CommandGuideModal.fxml"));
+            stage.setScene(new Scene(root));
+            stage.setTitle("Help");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.getIcons().add(new Image(Main.class.getResourceAsStream("images/alice_annoyed.png")));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
