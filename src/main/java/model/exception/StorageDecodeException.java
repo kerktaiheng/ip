@@ -6,7 +6,7 @@ package model.exception;
 public class StorageDecodeException extends AliceException {
 
     /**
-     * Constructs a new StorageDecodeException with no detail message.
+     * Constructs a new StorageDecodeException
      */
     public StorageDecodeException() {
         super();

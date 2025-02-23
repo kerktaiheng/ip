@@ -1,15 +1,16 @@
 package model.command;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import model.exception.AliceException;
 import model.exception.CommandFormatException;
 import utils.ArrayUtils;
+import utils.DateTimeUtils;
 
+/**
+ * Parses user input into commands.
+ */
 public class Parser {
-
-    private static final DateTimeFormatter DATETIMEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     private static Command parseByeCommand(String[] args) throws AliceException {
         if (args.length != 1) {
@@ -76,7 +77,7 @@ public class Parser {
         String deadlineName = ArrayUtils.joinFromFind(args, " ", "deadline", "/by");
         String byString = ArrayUtils.joinFromFind(args, " ", "/by");
         try {
-            LocalDateTime by = parseDateTime(byString);
+            LocalDateTime by = DateTimeUtils.parseDateTime(byString);
             return new DeadlineCommand(deadlineName, by);
         } catch (Exception e) {
             throw new CommandFormatException();
@@ -91,8 +92,8 @@ public class Parser {
         String fromString = ArrayUtils.joinFromFind(args, " ", "/from", "/to");
         String toString = ArrayUtils.joinFromFind(args, " ", "/to");
         try {
-            LocalDateTime from = parseDateTime(fromString);
-            LocalDateTime to = parseDateTime(toString);
+            LocalDateTime from = DateTimeUtils.parseDateTime(fromString);
+            LocalDateTime to = DateTimeUtils.parseDateTime(toString);
             return new EventCommand(eventName, from, to);
         } catch (Exception e) {
             throw new CommandFormatException();
@@ -148,16 +149,6 @@ public class Parser {
             default ->
                 throw new CommandFormatException();
         }
-    }
-
-    /**
-     * Parses a date-time string and returns a LocalDateTime object.
-     *
-     * @param dateTimeString The date-time string.
-     * @return The corresponding LocalDateTime object.
-     */
-    private static LocalDateTime parseDateTime(String dateTimeString) {
-        return LocalDateTime.parse(dateTimeString, DATETIMEFORMATTER);
     }
 
 }

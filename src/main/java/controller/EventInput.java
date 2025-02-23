@@ -9,6 +9,9 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import utils.DateTimeUtils;
 
+/**
+ * Controller for the event input form.
+ */
 public class EventInput extends TaskInput {
 
     @FXML
@@ -26,6 +29,9 @@ public class EventInput extends TaskInput {
     @FXML
     private ChoiceBox<String> toMinuteChoiceBox;
 
+    /**
+     * Constructs an EventInput.
+     */
     public EventInput() {
         FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("fxml/EventInput.fxml"));
         fxmlLoader.setController(this);
@@ -37,6 +43,9 @@ public class EventInput extends TaskInput {
         populateChoiceBoxes();
     }
 
+    /**
+     * Populates the choice boxes with hour and minute values.
+     */
     private void populateChoiceBoxes() {
         for (int i = 0; i < 24; i++) {
             fromHourChoiceBox.getItems().add(String.format("%02d", i));
@@ -48,6 +57,11 @@ public class EventInput extends TaskInput {
         }
     }
 
+    /**
+     * Generates the input string for the event task.
+     *
+     * @return the input string
+     */
     @Override
     public String generateInput() {
         String name = nameField.getText();
@@ -60,6 +74,9 @@ public class EventInput extends TaskInput {
         return "event " + name + " /from " + fromDateTime + " /to " + toDateTime;
     }
 
+    /**
+     * Clears the input fields.
+     */
     @Override
     public void clear() {
         nameField.clear();

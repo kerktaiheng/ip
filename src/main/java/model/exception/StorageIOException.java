@@ -9,7 +9,7 @@ import model.response.MessageGenerator;
 public class StorageIOException extends AliceException {
 
     /**
-     * Constructs a new StorageIOException with no detail message.
+     * Constructs a new StorageIOException
      */
     public StorageIOException() {
         super();

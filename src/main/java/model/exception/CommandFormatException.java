@@ -8,7 +8,7 @@ import model.response.MessageGenerator;
 public class CommandFormatException extends AliceException {
 
     /**
-     * Constructs a new CommandFormatException with no detail message.
+     * Constructs a new CommandFormatException
      */
     public CommandFormatException() {
         super();

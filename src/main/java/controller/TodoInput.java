@@ -6,6 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 
+/**
+ * Controller for the todo input form.
+ */
 public class TodoInput extends TaskInput {
 
     @FXML

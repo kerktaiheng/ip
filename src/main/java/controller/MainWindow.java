@@ -5,7 +5,6 @@ import java.util.concurrent.Executors;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -35,21 +34,26 @@ public class MainWindow extends VBox {
     private Alice alice;
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-    private AliceSidebar aliceSidebar = new AliceSidebar();
+    private final FormSidebar formSidebar = new FormSidebar(this);
+    private final AliceSidebar aliceSidebar = new AliceSidebar();
 
+    /**
+     * Initializes the main window.
+     */
     @FXML
     public void initialize() {
         chatScrollPane.vvalueProperty().bind(chatVBox.heightProperty());
         chatScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         chatVBox.prefWidthProperty().bind(chatScrollPane.widthProperty());
 
-        FormSidebar formSidebar = new FormSidebar(this);
         leftSidebar.getChildren().add(formSidebar);
         StackPane.setAlignment(formSidebar, Pos.TOP_CENTER);
     }
 
     /**
-     * Injects the Alice instance
+     * Injects the Alice instance.
+     *
+     * @param alice the Alice instance
      */
     public void setAlice(Alice alice) {
         this.alice = alice;
@@ -63,6 +67,9 @@ public class MainWindow extends VBox {
         System.out.println("alice is ready (and more than excited to see you)");
     }
 
+    /**
+     * Starts listening to Alice's responses.
+     */
     private void startListeningToAlice() {
         executorService.submit(() -> {
             try {
@@ -88,6 +95,7 @@ public class MainWindow extends VBox {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        //Currently, this stackpane is needed to align user dialog box to the right.
         StackPane stackPane = new StackPane();
         UserDialogBox userDialogBox = UserDialogBox.of(input);
         stackPane.getChildren().add(userDialogBox);
@@ -113,11 +121,21 @@ public class MainWindow extends VBox {
         userInput.clear();
     }
 
+    /**
+     * Handles user input with the given input string.
+     *
+     * @param input the input string
+     */
     protected void handleUserInput(String input) {
         userInput.setText(input);
         handleUserInput();
     }
 
+    /**
+     * Handles key press events.
+     *
+     * @param keyEvent the key event
+     */
     @FXML
     private void onKeyPressed(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
@@ -125,6 +143,11 @@ public class MainWindow extends VBox {
         }
     }
 
+    /**
+     * Gets the Alice instance.
+     *
+     * @return the Alice instance
+     */
     protected Alice getAlice() {
         return this.alice;
     }

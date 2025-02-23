@@ -6,7 +6,7 @@ package model.exception;
 public class AliceException extends Exception {
 
     /**
-     * Constructs a new AliceException with no detail message.
+     * Constructs a new AliceException
      */
     public AliceException() {
         super();

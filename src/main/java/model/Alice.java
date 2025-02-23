@@ -22,6 +22,7 @@ public class Alice {
 
     private TaskList tasks;
     private final Storage storage;
+    //A blocking queue that enables asynchronous listening for responses
     private final BlockingQueue<Response> responseBuffer;
     private final Random random = new Random(System.currentTimeMillis());
 
@@ -42,6 +43,11 @@ public class Alice {
         startInsultThread();
     }
 
+    /**
+     * Starts a thread that generates insults at random intervals based on
+     * Alice's anger level. This is a daemon thread that will run in the
+     * background and will not block on shutdown.
+     */
     private void startInsultThread() {
         Thread insultThread = new Thread(() -> {
             while (true) {
@@ -85,6 +91,13 @@ public class Alice {
         }
     }
 
+    /**
+     * Parse and execute the input string.
+     *
+     * @param input The input string.
+     * @throws AliceExit If the application should exit.
+     * @throws AliceException If an error occurs during parsing and/or execution
+     */
     public void run(String input) throws AliceExit {
         try {
             Command command = Parser.parseCommand(input);
@@ -122,6 +135,12 @@ public class Alice {
         };
     }
 
+    /**
+     * Takes a response from the response buffer.
+     *
+     * @return The response taken from the buffer.
+     * @throws InterruptedException If the thread is interrupted while waiting.
+     */
     public Response takeResponse() throws InterruptedException {
         Response response;
         synchronized (responseBuffer) {
