@@ -71,7 +71,7 @@ public class MainWindow extends VBox {
         StackPane.setAlignment(aliceSidebar, Pos.TOP_CENTER);
 
         startListeningToAlice();
-        System.out.println("alice is ready (and more than excited to see you)");
+        .println("alice is ready (and more than excited to see you)");
     }
 
     /**
@@ -152,7 +152,6 @@ public class MainWindow extends VBox {
 
     @FXML
     private void onHelpMenuItemAction() {
-        System.out.println("Help menu item clicked");
         try {
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(Main.class.getResource("fxml/CommandGuideModal.fxml"));
