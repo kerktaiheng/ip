@@ -71,7 +71,6 @@ public class MainWindow extends VBox {
         StackPane.setAlignment(aliceSidebar, Pos.TOP_CENTER);
 
         startListeningToAlice();
-        .println("alice is ready (and more than excited to see you)");
     }
 
     /**
