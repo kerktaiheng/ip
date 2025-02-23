@@ -2,6 +2,8 @@
 
 > “shut up nerd” –alice
 
+![](https://kerktaiheng.github.io/ip/Ui.png)
+
 Alice, the bot that hates you, is here to help you free your mind of having to remember things you need to do. It’s:
 
 - **Command-based** (because in her eyes you can't handle more than that)
@@ -17,57 +19,54 @@ Ok, for real
 1. `git clone`
 2. `gradle clean build run`
 
-
 # Command Help Guide
 
 This guide provides an overview of the commands supported by the application.
 
-## Bye Command
+### Bye Command
 - **Format:** `bye`
 - **Description:** Exits the application.
 
-## List Command
+### List Command
 - **Format:** `list`
 - **Description:** Lists all tasks.
 
-## Mark Command
+### Mark Command
 - **Format:** `mark <index>`
 - **Description:** Marks the task at the specified index as done.
 - **Example:** `mark 1`
 
-## Unmark Command
+### Unmark Command
 - **Format:** `unmark <index>`
 - **Description:** Unmarks the task at the specified index.
 - **Example:** `unmark 1`
 
-## Delete Command
+### Delete Command
 - **Format:** `delete <index>`
 - **Description:** Deletes the task at the specified index.
 - **Example:** `delete 1`
 
-## Todo Command
+### Todo Command
 - **Format:** `todo <task description>`
 - **Description:** Adds a new todo task.
 - **Example:** `todo read book`
 
-## Deadline Command
+### Deadline Command
 - **Format:** `deadline <task description> /by <date-time>`
 - **Description:** Adds a new task with a deadline.
 - **Example:** `deadline submit report /by 2023-12-31 23:59`
 
-## Event Command
+### Event Command
 - **Format:** `event <task description> /from <start date-time> /to <end date-time>`
 - **Description:** Adds a new event task.
 - **Example:** `event project meeting /from 2023-12-01 10:00 /to 2023-12-01 12:00`
 
-## Find Command
+### Find Command
 - **Format:** `find <keyword>`
 - **Description:** Finds tasks that match the given keyword.
 - **Example:** `find book`
 
-Or find the jar file here []
-
-## Features:
+# Features:
 - Managing todos, events, and deadlines
 - Find stuff with fuzzy search
 - Get "motivated" when you make mistakes and fail to achieve your goals
